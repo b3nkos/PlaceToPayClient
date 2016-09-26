@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    build: images/php
+    volumes:
+      - "./app/:/var/www/html"
+    working_dir: /var/www/html
+    ports:
+      - "8000:8000"

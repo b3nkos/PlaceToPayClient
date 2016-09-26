@@ -1,0 +1,12 @@
+{
+  "name": "b3nkos/place-to-play-client",
+  "description": "Soap client for Place To Pay API transactions",
+  "require": {
+    "php": ">=5.6.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "b3nkos\\PlaceToPayClient\\": "src/"
+    }
+  }
+}
