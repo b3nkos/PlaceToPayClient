@@ -18,15 +18,22 @@ class BankTest extends \Codeception\Test\Unit
 
     public function testShouldGetBankListWithItems()
     {
-        $bankRepo = new \b3nkos\PlaceToPayClient\Bank\BankRepo(new BankModelMock());
+        $bankRepo = new \b3nkos\PlaceToPayClient\Bank\BankRepo(new BankModelWithItemsMock());
         $bankList = $bankRepo->getBankList();
 
-        $this->assertGreaterThan(0, count($bankList));
+        $this->assertNotEmpty($bankList);
         $this->assertContainsOnlyInstancesOf(\b3nkos\PlaceToPayClient\Bank\Bank::class, $bankList);
+    }
+
+    public function testShouldGetBankListEmpty()
+    {
+        $bankRepo = new \b3nkos\PlaceToPayClient\Bank\BankRepo(new BankModelWithoutItemsMock());
+        $bankList = $bankRepo->getBankList();
+        $this->assertEmpty($bankList);
     }
 }
 
-final class BankModelMock implements \b3nkos\PlaceToPayClient\Bank\BankModelInterface
+final class BankModelWithItemsMock implements \b3nkos\PlaceToPayClient\Bank\BankModelInterface
 {
 
     /**
@@ -43,5 +50,18 @@ final class BankModelMock implements \b3nkos\PlaceToPayClient\Bank\BankModelInte
         ];
 
         return $bankList;
+    }
+}
+
+final class BankModelWithoutItemsMock implements \b3nkos\PlaceToPayClient\Bank\BankModelInterface
+{
+
+    /**
+     * Return the bank list
+     * @return array
+     */
+    public function getBankList()
+    {
+        return [];
     }
 }
